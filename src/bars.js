@@ -15,10 +15,12 @@ var update = function(data) {
   //Update
   rects.transition()
     .duration(750)
+    .attr('fill', function(){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'})
     .attr('height', function(){ return Math.random() * height; });
 
   //Enter
   rects.enter().append('rect')
+    .attr('fill', function(){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'})
     .attr('x',function(d, i){ return i * 21; })
     .attr('y', 0)
     .attr('width', 20)
