@@ -12,7 +12,5 @@ var update = function(data) {
     .data(data, function(d, i){ return d;});
 
   //Update
-  letters.
-
-  //Enter
+  
 };
