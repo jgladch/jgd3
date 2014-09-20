@@ -1,32 +1,44 @@
 var height = 200;
 var width = 1000;
 
-var vals = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
 
 var canvas = d3.select('body').append('svg')
   .attr('class','canvas')
   .attr('width', width)
   .attr('height', height)
 
+//D3 update function
 var update = function(data) {
-  //Data Join
+  //Data join - select rectangles in the svg canvas
   var rects = canvas.selectAll('rect').data(data);
 
-  //Update
+  //Update existing rectagles with new values
   rects.transition()
     .duration(750)
-    .attr('fill', function(){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'})
-    .attr('height', function(){ return Math.random() * height; });
+    .attr('fill', function(d, i){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'; })
+    .attr('height', function(d, i){ return d.height; })
+    .attr('y', function(d, i){ return height - d.height; });
 
-  //Enter
+  //Enter rectangles for the first time
   rects.enter().append('rect')
-    .attr('fill', function(){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'})
+    .attr('fill', function(d, i){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'; })
     .attr('x',function(d, i){ return i * 21; })
-    .attr('y', 0)
+    .attr('y', function(d, i){ return height - d.height; })
     .attr('width', 20)
-    .attr('height', function(){ return Math.random() * height; });
+    .attr('height', function(d, i){ return d.height; });
 };
 
-update(vals);
+var genVals = function(n) {
+  var vals = [];
+  for (var i = 0; i < n; i++) {
+    vals.push({
+      height: Math.random() * height,
+      // rgb: 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'
+    });
+  }
+  return vals;
+};
 
-setInterval(function(){ update(vals); }, 750);
+update(genVals(45));
+
+setInterval(function(){ update(genVals(45)); }, 750);
