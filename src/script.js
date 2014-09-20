@@ -1,4 +1,3 @@
-
 var width = 960;
 var height = 500;
 
