@@ -14,31 +14,34 @@ var update = function(data) {
 
   //Update existing rectagles with new values
   rects.transition()
-    .duration(750)
-    .attr('fill', function(d, i){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'; })
+    .duration(1500)
+    .attr('fill', function(d, i){ return d.rgb; })
     .attr('height', function(d, i){ return d.height; })
     .attr('y', function(d, i){ return height - d.height; });
 
   //Enter rectangles for the first time
   rects.enter().append('rect')
-    .attr('fill', function(d, i){ return 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'; })
+    .attr('fill', function(d, i){ return d.rgb; })
     .attr('x',function(d, i){ return i * 21; })
     .attr('y', function(d, i){ return height - d.height; })
     .attr('width', 20)
     .attr('height', function(d, i){ return d.height; });
 };
 
-var genVals = function(n) {
+var genVals = function(n, distance) {
   var vals = [];
+  var red = Math.floor(Math.random() * 255);
+  var green = Math.floor(Math.random() * 255);
+  var blue = Math.floor(Math.random() * 255);
   for (var i = 0; i < n; i++) {
     vals.push({
       height: Math.random() * height,
-      // rgb: 'rgb(' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ', ' + (Math.floor(Math.random() * 255)) + ')'
+      rgb: 'rgb(' + (red + (i * distance)) + ', ' + (green + (i * distance)) + ', ' + (blue + (i * distance)) + ')',
     });
   }
   return vals;
 };
 
-update(genVals(45));
+update(genVals(45, 5));
 
-setInterval(function(){ update(genVals(45)); }, 750);
+setInterval(function(){ update(genVals(45, 5)); }, 2000);
