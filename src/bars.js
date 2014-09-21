@@ -1,6 +1,8 @@
 var height = 200;
 var width = 1000;
 
+var name = ['jeff gladchun'];
+
 
 var canvas = d3.select('body').append('svg')
   .attr('class','canvas')
@@ -26,6 +28,8 @@ var update = function(data) {
     .attr('y', function(d, i){ return height - d.height; })
     .attr('width', 20)
     .attr('height', function(d, i){ return d.height; });
+
+  genText(name);
 };
 
 var genVals = function(n, distance) {
@@ -40,6 +44,22 @@ var genVals = function(n, distance) {
     });
   }
   return vals;
+};
+
+var genText = function(data) {
+  //Data join / select
+  var letters = canvas.selectAll('text').append('text').data(data);
+
+  //Update
+
+
+  //Enter
+  letters.enter().append('text')
+    .attr('x', 50)
+    .attr('y', 50)
+    .html(function(d, i) { return d; });
+
+  //Exit
 };
 
 update(genVals(45, 5));
