@@ -1,7 +1,7 @@
 var height = 200;
 var width = 1000;
 
-var name = ['jeff gladchun'];
+var name = ['partybook'];
 
 
 var canvas = d3.select('body').append('svg')
@@ -55,8 +55,11 @@ var genText = function(data) {
 
   //Enter
   letters.enter().append('text')
-    .attr('x', 50)
-    .attr('y', 50)
+    .attr('font-family', 'arial')
+    .attr('font-size', '85')
+    .attr('fill', 'white')
+    .attr('x', function(d,i){return 255 + (i * 50);})
+    .attr('y', 130)
     .html(function(d, i) { return d; });
 
   //Exit
